@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Bubbu 💖</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    text-align:center;
+    overflow:hidden;
+    background: linear-gradient(-45deg,#ffe6f2,#ffd1ec,#fff0f6,#ffcce6);
+    background-size:400% 400%;
+    animation: gradientMove 12s ease infinite;
+}
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+body::before, body::after{
+    content:"";
+    position:absolute;
+    width:400px;
+    height:400px;
+    background:rgba(255,20,147,0.25);
+    border-radius:50%;
+    filter:blur(120px);
+    animation: glowMove 10s infinite alternate;
+    z-index:-1;
+}
+body::after{
+    right:0;
+    bottom:0;
+    background:rgba(255,105,180,0.25);
+}
+@keyframes glowMove{
+    0%{transform:translate(-60px,-60px);}
+    100%{transform:translate(60px,60px);}
+}
+.page{
+    display:none;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    padding:20px;
+    position:relative;
+}
+.active{display:flex;}
+h1,h2,p{
+    color:#ff1493;
+    text-shadow:0 0 10px rgba(255,20,147,0.4);
+}
+.heart{
+    position:absolute;
+    animation: floatHeart 6s linear infinite;
+    opacity:0.7;
+    pointer-events:none;
+}
+@keyframes floatHeart{
+    0%{transform:translateY(100vh) scale(0.5);opacity:0;}
+    50%{opacity:1;}
+    100%{transform:translateY(-10vh) scale(1);opacity:0;}
+}
+button{
+    padding:12px 30px;
+    margin:10px;
+    font-size:18px;
+    border:none;
+    border-radius:25px;
+    background:linear-gradient(45deg,#ff4da6,#ff1493);
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 0 15px pink;
+}
+button:hover{transform:scale(1.1);}
+.flexRow{display:flex;gap:20px;justify-content:center;align-items:center;}
+.loading-bar{width:300px;height:20px;background:#ffd1ec;border-radius:20px;overflow:hidden;}
+.loading-fill{height:100%;width:0%;background:#ff1493;animation:load 3s forwards;}
+@keyframes load{100%{width:100%;}}
+.letter-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.letter{
+background:linear-gradient(45deg,#ff4da6,#ff1493);
+color:white;padding:25px;border-radius:20px;
+cursor:pointer;animation:float 4s infinite ease-in-out;
+box-shadow:0 0 20px rgba(255,20,147,0.5);}
+@keyframes float{
+0%{transform:translateY(0px);}
+50%{transform:translateY(-15px);}
+100%{transform:translateY(0px);}
+}
+.gif{width:200px;margin:15px;}
+#moveBtn,#moveBtn2{position:absolute;}
+#gameArea{position:relative;width:100%;height:65vh;overflow:hidden;}
+#bucket{position:absolute;bottom:10px;width:120px;}
+#bucket img{width:100%;}
+.heartChoice{font-size:40px;margin:10px;cursor:pointer;}
+.locked{opacity:0.3;pointer-events:none;}
+img.photo{max-width:250px;margin-top:20px;border-radius:15px;}
+</style>
+</head>
+
+<body>
+
+<script>
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="💖";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},500);
+</script>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+<img src="page1.gif" class="gif">
+<h1>I have something for you 💕</h1>
+<h2>Do you wanna see??</h2>
+<div class="flexRow">
+<button onclick="nextPage(2)">YES</button>
+<button id="page1No" onclick="handleNo()">NO</button>
+</div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+<img src="loading1.gif" class="gif">
+<h1>Loading...</h1>
+<div class="loading-bar"><div class="loading-fill"></div></div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+<img src="cry.gif" class="gif">
+<h1>Pliijj naa Bubbu 🥺💖</h1>
+<button onclick="restartFlow()">Try Again</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+<img src="happy.gif" class="gif">
+<h1>Yeyeye Bubbu 😋💗</h1>
+<div class="flexRow">
+<button onclick="nextPage(5)">NEXT</button>
+<button id="moveBtn">NOI NEXT</button>
+</div>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="page5">
+<img src="loading2.gif" class="gif">
+<h1>Loading Love...</h1>
+<div class="loading-bar"><div class="loading-fill"></div></div>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page" id="page6">
+<img src="proposal.gif" class="gif">
+<h1>Will you be my Valentine? 💖</h1>
+<div class="flexRow">
+<button onclick="nextPage(7)">YES</button>
+<button id="moveBtn2">NO</button>
+</div>
+</div>
+
+<!-- PAGE 7 -->
+<div class="page" id="page7">
+<img src="loading3.gif" class="gif">
+<h1>Almost There...</h1>
+<div class="loading-bar"><div class="loading-fill"></div></div>
+</div>
+
+<!-- PAGE 8 -->
+<div class="page" id="page8">
+<img src="letters.gif" class="gif">
+<h1>7 Days of Love for Bubbu 💌</h1>
+<div class="letter-grid">
+<div class="letter" onclick="openLetter(1)">Rose Day</div>
+<div class="letter" onclick="openLetter(2)">Chocolate Day</div>
+<div class="letter" onclick="openLetter(3)">Teddy Day</div>
+<div class="letter" onclick="openLetter(4)">Promise Day</div>
+<div class="letter" onclick="openLetter(5)">Hug Day</div>
+<div class="letter" onclick="openLetter(6)">Kiss Day</div>
+<div class="letter" onclick="openLetter(7)">Valentine's Day</div>
+</div>
+<br><br>
+<button onclick="startGame()">🎮 Play Game</button>
+</div>
+
+<!-- LETTER PAGE -->
+<div class="page" id="letterPage">
+<img id="letterGif" class="gif">
+<h2 id="letterTitle"></h2>
+<p id="letterText" style="max-width:600px;"></p>
+<button onclick="nextPage(8)">Back 💌</button>
+</div>
+
+<!-- GAME PAGE -->
+<div class="page" id="gamePage">
+<h2>Catch the Hearts 💖</h2>
+<div id="score">Score: 0</div>
+<div id="gameArea">
+<div id="bucket"><img src="teddy.png"></div>
+</div>
+<div id="endScreen" style="display:none;padding:20px;">
+<h2>Choose Your Hearts 💘</h2>
+<div id="heartChoices"></div>
+<div id="photoArea"></div>
+<br>
+<button onclick="restartGame()">Play Again</button>
+</div>
+<button onclick="nextPage(8)">⬅ Back to Letters</button>
+</div>
+
+<script>
+let noClickCount=0;
+
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+function nextPage(num){
+showPage("page"+num);
+if(num==2){setTimeout(()=>showPage("page4"),3000);}
+if(num==5){setTimeout(()=>showPage("page6"),3000);}
+if(num==7){setTimeout(()=>showPage("page8"),3000);}
+}
+
+function restartFlow(){showPage("page1");}
+
+/* ✅ ONLY CHANGE IS HERE */
+function handleNo(){
+noClickCount++;
+if(noClickCount==1){
+    showPage("page3");
+}
+else if(noClickCount==2){
+    let btn=document.getElementById("page1No");
+    btn.innerHTML="🎈 NO";
+    btn.style.transition="2s ease-in";
+    btn.style.transform="translateY(-120vh)";
+}
+}
+
+document.getElementById("moveBtn").onmouseover=function(){
+this.style.top=Math.random()*80+"vh";
+this.style.left=Math.random()*80+"vw";
+}
+document.getElementById("moveBtn2").onmouseover=function(){
+this.style.top=Math.random()*80+"vh";
+this.style.left=Math.random()*80+"vw";
+}
+
+function openLetter(num){
+showPage("letterPage");
+let title=document.getElementById("letterTitle");
+let text=document.getElementById("letterText");
+let gif=document.getElementById("letterGif");
+
+if(num==1){title.innerText="🌹 Rose Day";text.innerText="You are the most beautiful rose in my life.";gif.src="rose.gif";}
+if(num==2){title.innerText="🍫 Chocolate Day";text.innerText="You make my life sweeter than chocolate.";gif.src="chocolate.gif";}
+if(num==3){title.innerText="🐻 Teddy Day";text.innerText="You are my comfort place and my peace.";gif.src="teddy.gif";}
+if(num==4){title.innerText="💍 Promise Day";text.innerText="I promise to stay with you forever.";gif.src="promise.gif";}
+if(num==5){title.innerText="🤗 Hug Day";text.innerText="Your hugs feel like home.";gif.src="hug.gif";}
+if(num==6){title.innerText="💋 Kiss Day";text.innerText="Every kiss from you feels magical.";gif.src="kiss.gif";}
+if(num==7){title.innerText="💖 Happy Valentine’s Day";text.innerText="You are my today, tomorrow and forever.";gif.src="valentine.gif";}
+}
+
+function startGame(){showPage("gamePage");initGame();}
+
+let gameArea=document.getElementById("gameArea");
+let bucket=document.getElementById("bucket");
+let score=0,totalHearts=10,caughtHearts=[];
+let heartEmojis=["❤️","💛","💚","💙","💜","🧡","🤍","💖","💗","💘"];
+bucket.style.left="50%";
+
+document.addEventListener("mousemove",(e)=>{
+if(document.getElementById("gamePage").classList.contains("active")){
+bucket.style.left=e.clientX-60+"px";
+}});
+
+function initGame(){
+score=0;caughtHearts=[];
+document.getElementById("score").innerText="Score: 0";
+document.getElementById("heartChoices").innerHTML="";
+document.getElementById("photoArea").innerHTML="";
+document.getElementById("endScreen").style.display="none";
+gameArea.style.display="block";
+for(let i=0;i<totalHearts;i++){
+setTimeout(()=>dropHeart(i),i*800);
+}
+setTimeout(endGame,totalHearts*800+3000);
+}
+
+function dropHeart(i){
+let heart=document.createElement("div");
+heart.style.position="absolute";
+heart.style.fontSize="35px";
+heart.innerHTML=heartEmojis[i];
+heart.style.left=Math.random()*(window.innerWidth-30)+"px";
+heart.style.top="0px";
+gameArea.appendChild(heart);
+
+let fall=setInterval(()=>{
+heart.style.top=heart.offsetTop+5+"px";
+let bucketRect=bucket.getBoundingClientRect();
+let heartRect=heart.getBoundingClientRect();
+if(heartRect.bottom>=bucketRect.top &&
+heartRect.left<bucketRect.right &&
+heartRect.right>bucketRect.left){
+score++;
+caughtHearts.push(i);
+document.getElementById("score").innerText="Score: "+score;
+heart.remove();
+clearInterval(fall);
+}
+if(heart.offsetTop>window.innerHeight){
+heart.remove();
+clearInterval(fall);
+}},20);
+}
+
+function endGame(){
+gameArea.style.display="none";
+document.getElementById("endScreen").style.display="block";
+let heartChoices=document.getElementById("heartChoices");
+for(let i=0;i<totalHearts;i++){
+let h=document.createElement("span");
+h.innerHTML=heartEmojis[i];
+h.classList.add("heartChoice");
+if(!caughtHearts.includes(i)){h.classList.add("locked");}
+else{h.onclick=function(){openPhoto(i);}}
+heartChoices.appendChild(h);
+}}
+
+function openPhoto(i){
+document.getElementById("photoArea").innerHTML="<img class='photo' src='photo"+(i+1)+".jpg'>";
+}
+
+function restartGame(){location.reload();}
+</script>
+
+</body>
+</html>
