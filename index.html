@@ -137,14 +137,14 @@ setTimeout(()=>heart.remove(),6000);
 
 <!-- PAGE 3 -->
 <div class="page" id="page3">
-<img src="cry.gif" class="gif">
+<img src="page2.gif" class="gif">
 <h1>Pliijj naa Bubbu 🥺💖</h1>
 <button onclick="restartFlow()">Try Again</button>
 </div>
 
 <!-- PAGE 4 -->
 <div class="page" id="page4">
-<img src="happy.gif" class="gif">
+<img src="page3.gif" class="gif">
 <h1>Yeyeye Bubbu 😋💗</h1>
 <div class="flexRow">
 <button onclick="nextPage(5)">NEXT</button>
@@ -161,7 +161,7 @@ setTimeout(()=>heart.remove(),6000);
 
 <!-- PAGE 6 -->
 <div class="page" id="page6">
-<img src="proposal.gif" class="gif">
+<img src="page4.gif" class="gif">
 <h1>Will you be my Valentine? 💖</h1>
 <div class="flexRow">
 <button onclick="nextPage(7)">YES</button>
@@ -341,8 +341,10 @@ heartChoices.appendChild(h);
 }}
 
 function openPhoto(i){
-document.getElementById("photoArea").innerHTML="<img class='photo' src='photo"+(i+1)+".jpg'>";
+document.getElementById("photoArea").innerHTML =
+"<img class='photo' src='photo"+(i+1)+".jpg'>";
 }
+
 
 function restartGame(){location.reload();}
 </script>
