@@ -136,14 +136,14 @@ setTimeout(()=>heart.remove(),6000);
 </div>
 
 <!-- PAGE 3 -->
-<div class="page" id="page3">
+<div class="page active" id="page3">
 <img src="page2.gif" class="gif">
 <h1>Pliijj naa Bubbu 🥺💖</h1>
 <button onclick="restartFlow()">Try Again</button>
 </div>
 
 <!-- PAGE 4 -->
-<div class="page" id="page4">
+<div class="page active" id="page4">
 <img src="page3.gif" class="gif">
 <h1>Yeyeye Bubbu 😋💗</h1>
 <div class="flexRow">
@@ -160,7 +160,7 @@ setTimeout(()=>heart.remove(),6000);
 </div>
 
 <!-- PAGE 6 -->
-<div class="page" id="page6">
+<div class="page active" id="page6">
 <img src="page4.gif" class="gif">
 <h1>Will you be my Valentine? 💖</h1>
 <div class="flexRow">
@@ -341,8 +341,8 @@ heartChoices.appendChild(h);
 }}
 
 function openPhoto(i){
-document.getElementById("photoArea").innerHTML =
-"<img class='photo' src='photo"+(i+1)+".jpg'>";
+let img = `<img class="photo" src="photo${i+1}.jpg">`;
+document.getElementById("photoArea").innerHTML = img;
 }
 
 
